@@ -4,21 +4,35 @@
   "projectType": "application",
   "prefix": "flight-demo",
   "sourceRoot": "apps/checkin/src",
-  "tags": ["domain:checkin", "type:app"],
+  "tags": [
+    "domain:checkin",
+    "type:app"
+  ],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "executor": "ngx-build-plus:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/checkin",
         "index": "apps/checkin/src/index.html",
-        "browser": "apps/checkin/src/main.ts",
-        "polyfills": ["zone.js"],
+        "main": "apps/checkin/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/checkin/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/checkin/src/favicon.ico", "apps/checkin/src/assets"],
-        "styles": ["apps/checkin/src/styles.scss"],
-        "scripts": []
+        "assets": [
+          "apps/checkin/src/favicon.ico",
+          "apps/checkin/src/assets"
+        ],
+        "styles": [
+          "apps/checkin/src/styles.scss"
+        ],
+        "scripts": [],
+        "extraWebpackConfig": "apps/checkin/webpack.config.js",
+        "commonChunk": false
       },
       "configurations": {
         "production": {
@@ -34,18 +48,22 @@
               "maximumError": "4kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "extraWebpackConfig": "apps/checkin/webpack.prod.config.js"
         },
         "development": {
+          "buildOptimizer": false,
           "optimization": false,
+          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "namedChunks": true
         }
       },
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "ngx-build-plus:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "checkin:build:production"
@@ -54,21 +72,31 @@
           "buildTarget": "checkin:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201",
+        "extraWebpackConfig": "apps/checkin/webpack.config.js"
+      }
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "ngx-build-plus:extract-i18n",
       "options": {
-        "buildTarget": "checkin:build"
+        "buildTarget": "checkin:build",
+        "extraWebpackConfig": "apps/checkin/webpack.config.js"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "outputs": [
+        "{options.outputFile}"
+      ]
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/checkin/jest.config.ts"
       }

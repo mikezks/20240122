@@ -4,26 +4,38 @@
   "projectType": "application",
   "prefix": "angular-architects",
   "sourceRoot": "apps/tickets/src",
-  "tags": ["domain:tickets", "type:app"],
+  "tags": [
+    "domain:tickets",
+    "type:app"
+  ],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "executor": "ngx-build-plus:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/tickets",
         "index": "apps/tickets/src/index.html",
-        "browser": "apps/tickets/src/main.ts",
-        "polyfills": ["zone.js"],
+        "main": "apps/tickets/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/tickets/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/tickets/src/favicon.ico", "apps/tickets/src/assets"],
+        "assets": [
+          "apps/tickets/src/favicon.ico",
+          "apps/tickets/src/assets"
+        ],
         "styles": [
           "@angular/material/prebuilt-themes/indigo-pink.css",
           "node_modules/@angular-architects/paper-design/assets/css/bootstrap.css",
           "node_modules/@angular-architects/paper-design/assets/scss/paper-dashboard.scss",
           "apps/tickets/src/styles.scss"
         ],
-        "scripts": []
+        "scripts": [],
+        "extraWebpackConfig": "apps/tickets/webpack.config.js",
+        "commonChunk": false
       },
       "configurations": {
         "production": {
@@ -39,18 +51,22 @@
               "maximumError": "4kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "extraWebpackConfig": "apps/tickets/webpack.prod.config.js"
         },
         "development": {
+          "buildOptimizer": false,
           "optimization": false,
+          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "namedChunks": true
         }
       },
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "ngx-build-plus:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "tickets:build:production"
@@ -59,21 +75,31 @@
           "buildTarget": "tickets:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4200,
+        "publicHost": "http://localhost:4200",
+        "extraWebpackConfig": "apps/tickets/webpack.config.js"
+      }
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "ngx-build-plus:extract-i18n",
       "options": {
-        "buildTarget": "tickets:build"
+        "buildTarget": "tickets:build",
+        "extraWebpackConfig": "apps/tickets/webpack.config.js"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "outputs": [
+        "{options.outputFile}"
+      ]
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/tickets/jest.config.ts"
       }
