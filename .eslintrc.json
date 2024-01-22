@@ -57,6 +57,14 @@
               {
                 "sourceTag": "domain:checkin",
                 "onlyDependOnLibsWithTags": ["domain:checkin", "domain:shared"]
+              },
+              {
+                "sourceTag": "domain:luggage",
+                "onlyDependOnLibsWithTags": [
+                  "domain:luggage",
+                  "domain:booking-api:luggage",
+                  "domain:shared"
+                ]
               }
             ]
           }
