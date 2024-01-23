@@ -18,7 +18,15 @@
 
     <li>
       <a routerLink="flight-booking/flight-search">
-        <p>Flights</p>
+        <p>
+          Flights
+          <span
+            *ngIf="flightCount$ | async as count"
+            class="badge badge-pill badge-info"
+          >
+            {{ count }}
+          </span>
+        </p>
       </a>
     </li>
 

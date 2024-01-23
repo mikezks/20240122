@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, EMPTY } from 'rxjs';
 import { Flight } from '../entities/flight';
 import { FlightService } from './flight.service';
 
 @Injectable()
 export class DummyFlightService implements FlightService {
+  flightCount$: Observable<number> = EMPTY;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   findById(id: string): Observable<Flight> {
     const date = new Date().toISOString();
