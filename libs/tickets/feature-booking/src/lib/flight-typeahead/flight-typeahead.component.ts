@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Flight, FlightService } from '@flight-demo/tickets/domain';
-import { Observable, debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs';
+import { Observable, catchError, debounceTime, distinctUntilChanged, filter, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'tickets-flight-typeahead',
@@ -36,7 +36,9 @@ export class FlightTypeaheadComponent {
        * Stream 2: Load Method HTTP Backend API Call
        *  - State Provider: Flights
        */
-      switchMap(city => this.load(city)),
+      switchMap(city => this.load(city).pipe(
+        catchError(() => of([]))
+      )),
       // Side-Effect: Loading State
       tap(() => this.loading = false)
     );
