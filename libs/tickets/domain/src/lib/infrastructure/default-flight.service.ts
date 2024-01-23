@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Flight } from '../entities/flight';
 import { FlightService } from './flight.service';
 import { ConfigService } from '@flight-demo/shared/util-config';
+
+
 @Injectable()
 export class DefaultFlightService implements FlightService {
   private http = inject(HttpClient);
