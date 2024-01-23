@@ -1,3 +1,5 @@
+export * from './lib/+state';
+
 export * from './lib/entities/flight';
 
 export * from './lib/infrastructure/default-flight.service';
