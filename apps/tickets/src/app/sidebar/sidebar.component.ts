@@ -1,7 +1,8 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, Injector, inject, runInInjectionContext } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FlightService } from '@flight-demo/tickets/domain';
+import { Observable } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -11,4 +12,15 @@ import { FlightService } from '@flight-demo/tickets/domain';
 })
 export class SidebarComponent {
   flightCount$ = inject(FlightService).flightCount$;
+  injector = inject(Injector);
+
+  search() {
+    runInInjectionContext(this.injector, () => {
+      injectFlightCount()
+    });
+  }
+}
+
+export function injectFlightCount(): Observable<number> {
+  return inject(FlightService).flightCount$;
 }
