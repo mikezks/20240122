@@ -5,7 +5,7 @@ import { Flight, FlightService } from '@flight-demo/tickets/domain';
 import { Observable, catchError, debounceTime, distinctUntilChanged, filter, of, switchMap, tap } from 'rxjs';
 
 @Component({
-  selector: 'tickets-flight-typeahead',
+  selector: 'app-flight-typeahead',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './flight-typeahead.component.html',
