@@ -3,6 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   inject,
+  input,
   Input,
   NgZone,
   Output,
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
 import { FlightEditReactiveComponent } from '../flight-edit-reactive/flight-edit-reactive.component';
 import { RouterLink } from '@angular/router';
 import { CityPipe, StatusToggleComponent } from '@flight-demo/shared/ui-common';
-import { initFlight } from '@flight-demo/tickets/domain';
+import { Flight } from '@flight-demo/tickets/domain';
 
 @Component({
   selector: 'app-flight-card',
@@ -26,7 +27,7 @@ export class FlightCardComponent {
   private element = inject(ElementRef);
   private zone = inject(NgZone);
 
-  @Input() item = initFlight;
+  item = input.required<Flight>();
   @Input() selected = false;
   @Output() selectedChange = new EventEmitter<boolean>();
 
@@ -42,7 +43,7 @@ export class FlightCardComponent {
 
   edit() {
     this.dialog.open(FlightEditReactiveComponent, {
-      data: { flight: this.item },
+      data: { flight: this.item() },
     });
   }
 

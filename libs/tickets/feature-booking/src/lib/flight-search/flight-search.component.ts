@@ -44,10 +44,10 @@ export class FlightSearchComponent {
       () => console.log(this.from(), untracked(() => this.to()))
     );
 
-    this.from.set('Paris');
+    /* this.from.set('Paris');
     this.from.set('Zürich');
     this.from.set('Rom');
-    this.from.set('Barcelona');
+    this.from.set('Barcelona'); */
   }
 
   search(): void {
