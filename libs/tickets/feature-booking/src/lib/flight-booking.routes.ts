@@ -5,7 +5,7 @@ import { FlightSearchComponent } from './flight-search/flight-search.component';
 import { PassengerSearchComponent } from './passenger-search/passenger-search.component';
 import { FlightTypeaheadComponent } from './flight-typeahead/flight-typeahead.component';
 import { provideState } from '@ngrx/store';
-import { ticketFeature, TicketEffects } from '@flight-demo/tickets/domain';
+import { ticketFeature, TicketEffects, provideRouterFeature } from '@flight-demo/tickets/domain';
 import { provideEffects } from '@ngrx/effects';
 
 export const FLIGHT_BOOKING_ROUTES: Routes = [
@@ -14,7 +14,8 @@ export const FLIGHT_BOOKING_ROUTES: Routes = [
     component: FlightBookingComponent,
     providers: [
       provideState(ticketFeature),
-      provideEffects(TicketEffects)
+      provideEffects(TicketEffects),
+      provideRouterFeature()
     ],
     children: [
       {
