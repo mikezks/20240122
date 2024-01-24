@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, lastValueFrom, of } from 'rxjs';
 import { Flight } from '../entities/flight';
 import { FlightService } from './flight.service';
 
@@ -20,5 +20,12 @@ export class DummyFlightService implements FlightService {
       { id: 8, from: 'here', to: 'there', date, delayed: false },
       { id: 9, from: 'here', to: 'there', date, delayed: false },
     ]);
+  }
+
+  findPromise(
+    from: string,
+    to: string,
+  ): Promise<Flight[]> {
+    return lastValueFrom(this.find(from, to));
   }
 }
